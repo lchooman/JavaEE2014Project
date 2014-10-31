@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+    Customer movie show booking and employee reporting Java EE system, using Spring 3+, Hibernate 4+ and JSF 2.1+
+    Copyright (C) 2014 Lewis Tat Fong CHOO MAN
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see http://www.gnu.org/licenses/.
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="template.xhtml">
+            <ui:define name="body">
+                <f:event listener="#{movieShowBean.preRender}" type="preRenderView" />
+                <h:form>
+                    <table class="filterTable">
+                        <tr><th><h:outputLabel for="startDate" value="Start Date: " /></th>
+                            <td><h:inputText value="#{movieShowBean.startDate}" id="startDate" size="10" maxlength="10"
+                                             required="true" requiredMessage="Start date is required" converterMessage="Invalid date format" >
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </h:inputText>&nbsp;
+                                <h:message class="errorMsgs" for="startDate" /></td>
+                            <td class="separatorCell"></td>
+                            <th><h:outputLabel for="daysOffset" value="Additional Days: " /></th>
+                            <td><h:selectOneMenu value="#{movieShowBean.daysOffset}" id="daysOffset">
+                                    <f:selectItems value="#{movieShowBean.daysOffsets}" var="daysOffset" itemValue="#{daysOffset}"
+                                       itemLabel="#{daysOffset}" itemDescription="#{daysOffset}" itemLabelEscaped="true"
+                                       noSelectionValue="#{movieShowBean.daysOffsets[0]}" itemDisabled="false" />
+                                </h:selectOneMenu></td>
+                            <td class="separatorCell"></td>
+                            <th><h:outputLabel for="theater" value="Theater: " /></th>
+                            <td><h:selectOneMenu value="#{movieShowBean.theaterId}" id="theater">
+                                    <f:selectItems value="#{movieShowBean.theaterSelectItems}" var="theater" itemValue="#{theater.id}"
+                                       itemLabel="#{theater.name}" itemDescription="#{theater.name}" itemLabelEscaped="true"
+                                       noSelectionValue="#{movieShowBean.theaterSelectItems[0]}" itemDisabled="false" />
+                                </h:selectOneMenu></td>
+                            <td class="separatorCell"></td>
+                            <td><h:commandButton action="#{movieShowBean.go}" value="Go" type="submit" /></td>
+                            <td class="separatorCell"></td>
+                            <td><h:commandButton value="Reset" type="reset" /></td></tr>
+                    </table>
+                </h:form>
+                <h:form>
+                    <h:inputHidden id="startDate" value="#{movieShowBean.startDate}" >
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:inputHidden>
+                    <h:inputHidden id="daysOffset" value="#{movieShowBean.daysOffset}" />
+                    <h:inputHidden id="theater" value="#{movieShowBean.theaterId}" />
+                    <h:dataTable id="t1" class="theaterTable" value="#{movieShowBean.movieShowsByTheater}" var="theater" headerClass="theaterHeader" footerClass="#{movieShowBean.footerClass}"
+                                 rowClasses="rowOdd, rowEven">
+                        <f:facet name="header"><h:outputText value="#{movieShowBean.movieShowTitle}" /></f:facet>
+                        <f:facet name="footer">
+                            <h:outputText value="#{movieShowBean.summary}" />
+                        </f:facet>
+                        <h:column>
+                            <h:dataTable id="t2" class="movieTable" headerClass="movieTableHeader" value="#{theater.movies}" var="movie" rowClasses="rowOdd, rowEven">
+                                <f:facet name="header"><h:outputText value="#{theater.name}" /></f:facet>
+                                <h:column>
+                                    <h:graphicImage class="imgListMovie" url="#{movie.imageUrl}" alt="#{movie.title}" />
+                                </h:column>
+                                <h:column>
+                                    <h:outputText value="#{movie.title}" />
+                                </h:column>
+                                <h:column>
+                                    <h:dataTable id="t3" class="movieShowTable" headerClass="movieShowHeader" value="#{movie.movieShows}" var="movieShow" rowClasses="rowOdd, rowEven" >
+                                        <h:column>
+                                            <f:facet name="header"><h:outputText value="Click on links below to book show" /></f:facet>
+                                            <h:commandLink action="#{movieShowBean.book}" value="#{movieShow.showDescription}" rendered="#{movieShow.bookable}" type="submit" >
+                                                <f:setPropertyActionListener value="#{movieShow.id}" target="#{movieShowBean.movieShowId}" />
+                                            </h:commandLink>
+                                            <h:outputText value="#{movieShow.showDescription}" rendered="#{movieShow.notBookable}" />
+                                        </h:column>
+                                    </h:dataTable>
+                                </h:column>
+                            </h:dataTable>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

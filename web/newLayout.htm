@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Customer movie show booking and employee reporting Java EE system, using Spring 3+, Hibernate 4+ and JSF 2.1+
+    Copyright (C) 2014 Lewis Tat Fong CHOO MAN
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see http://www.gnu.org/licenses/.
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- html -->
+  <head>
+     <title>Test</title>
+     <style type="text/css">
+        html {
+            height: 100%;
+            width: 100%;
+        }
+
+        body
+        {
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 5px;
+            width: 98%;
+            height: 97%;
+            min-width: 1200px;
+            min-height: 768px;
+            max-width: 1366px;
+            border-style: ridge;
+            border-width: 5px;
+            padding: 5px;
+            overflow: auto;
+        }
+        .top
+        {
+            width:100%;
+            height: 10%;
+            border-style: solid;
+            border-width: 1px;
+            border-color: black;
+            text-align: center;
+            padding: 0px;
+            margin: 0px;
+            background-image: url('./images/banner-back.jpg');
+        }
+
+        .top table {
+            height: 100%;
+            border: none;
+            vertical-align: middle;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            font-size: large;
+            font-weight: bold;
+            color: darkblue;
+        }
+
+        .bottom
+        {
+            width:100%;
+            height: 3%;
+            border-style: solid;
+            border-width: 1px;
+            border-color: black;
+            text-align: center;
+            padding: 0px;
+            margin: 0px;
+            background-image: url('./images/footer-back.jpg');
+        }
+        
+        .bottom table {
+            height: 100%;
+            border: none;
+            vertical-align: middle;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            font-size: small;
+            font-weight: bold;
+            color: darkblue;
+        }
+
+        .main
+        {
+            width: 100%;
+            height: 85%;
+            border-style: solid;
+            border-width: 1px;
+            border-color: black;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            margin-left: 0px;
+            margin-right: 0px;
+            padding: 0px;
+            overflow: hidden;
+        }
+        .left
+        {
+            width: 13%;
+            height: 99.8%;
+            border-style: solid;
+            border-width: 1px;
+            border-color: black;
+            padding: 0px;
+            margin: 0px;
+            float: left;
+            text-align: center;
+            overflow: auto;
+            background-image: url('./images/menu-back.jpg');
+        }
+        .right
+        {
+            width: 86%;
+            height: 99.8%;
+            border-style: solid;
+            border-width: 1px;
+            border-color: black;
+            padding: 0px;
+            margin: 0px;
+            float: right;
+            text-align: center;
+            overflow: auto;
+            background-image: url('./images/body-back.jpg');
+        }
+        .movieImg {
+            display: inline;
+            margin-top: 10px;
+            margin-left: 5px;
+            margin-right: 5px;
+            margin-bottom: 10px;
+            border-style: none;
+            border-width: 1px;
+            border-color: black;
+        }
+     </style>
+  </head>
+<body>
+    <div class="top">
+        <img style="float:left; height: 100%;" src="./images/banner-adventure.png" alt="Image not available" />
+        <img style="float:left; height: 100%;" src="./images/banner-scifi.png" alt="Image not available" />
+        <img style="float:left; height: 100%;" src="./images/banner-adventure-3.png" alt="Image not available" />
+        <img style="float:right; height: 100%;" src="./images/banner-action.png" alt="Image not available" />
+        <img style="float:right; height: 100%;" src="./images/banner-magic.png" alt="Image not available" />
+        <img style="float:right; height: 100%;" src="./images/banner-action-3.png" alt="Image not available" />
+        <table>
+            <tr>
+                <td>
+                    <h1>Unlimited Entertainment Ltd</h1>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="main">
+       <div class="left">Left<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />Line 2<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />Line 2</div>
+       <div class="right">
+           <img class="movieImg" src="./images/fast-furious-6.jpg" alt="None" />
+           <img class="movieImg" src="./images/harry-potter-half-blood-prince.jpg" alt="None" />
+           <img class="movieImg" src="./images/james-bond-skyfall.jpg" alt="None" />
+           <img class="movieImg" src="./images/narnia-voyage-dawn-trader.jpg" alt="None" />
+           <img class="movieImg" src="./images/star-trek-into-darkness.jpg" alt="None" />
+           <img class="movieImg" src="./images/x-men-first-class.jpg" alt="None" />
+           <img class="movieImg" src="./images/iron-man-3.jpg" alt="None" />
+           <img class="movieImg" src="./images/pacific-rim.jpg" alt="None" />
+           <img class="movieImg" src="./images/step-up-revolution.jpg" alt="None" />
+           <img class="movieImg" src="./images/prometheus.jpg" alt="None" />
+           <img class="movieImg" src="./images/hancock.jpg" alt="None" />
+           <img class="movieImg" src="./images/avatar.jpg" alt="None" />
+       </div>
+    </div>
+    <div class="bottom"><table><tr><td>&copy; Unlimited Entertainment Ltd 2014 | Designed &amp; developed by Lewis Choo Man</td></tr></table></div>
+</body>
+</html>

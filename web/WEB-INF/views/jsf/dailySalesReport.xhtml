@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+    Customer movie show booking and employee reporting Java EE system, using Spring 3+, Hibernate 4+ and JSF 2.1+
+    Copyright (C) 2014 Lewis Tat Fong CHOO MAN
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see http://www.gnu.org/licenses/.
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="template.xhtml">
+            <ui:define name="body">
+                <f:event listener="#{dailySalesReportBean.preRender}" type="preRenderView" />
+                <h:form>
+                    <table class="filterTable">
+                        <tr><th><h:outputLabel for="date" value="Date: " /></th>
+                            <td><h:inputText value="#{dailySalesReportBean.date}" id="date" size="10" maxlength="10"
+                                             required="true" requiredMessage="Date is required" converterMessage="Invalid date format" >
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </h:inputText>&nbsp;
+                                <h:message class="errorMsgs" for="date" /></td>
+                            <td class="separatorCell"></td>
+                            <th><h:outputLabel for="theater" value="Theater: " /></th>
+                            <td><h:selectOneMenu value="#{dailySalesReportBean.theaterId}" id="theater">
+                                    <f:selectItems value="#{dailySalesReportBean.theaterSelectItems}" var="theater" itemValue="#{theater.id}"
+                                       itemLabel="#{theater.name}" itemDescription="#{theater.name}" itemLabelEscaped="true"
+                                       noSelectionValue="#{dailySalesReportBean.theaterSelectItems[0]}" itemDisabled="false" />
+                                </h:selectOneMenu></td>
+                            <td class="separatorCell"></td>
+                            <td><h:commandButton action="#{dailySalesReportBean.go}" value="Go" type="submit" /></td>
+                            <td class="separatorCell"></td>
+                            <td><h:commandButton value="Reset" type="reset" /></td></tr>
+                    </table>
+                </h:form>
+                <h:form>
+                    <h:dataTable id="t1" class="theaterTable" value="#{dailySalesReportBean.movieShowsByTheater}" var="theater" headerClass="theaterHeader" footerClass="#{dailySalesReportBean.footerClass}"
+                                 rowClasses="rowOdd, rowEven">
+                        <f:facet name="header"><h:outputText value="#{dailySalesReportBean.title}" /></f:facet>
+                        <f:facet name="footer">
+                            <h:outputText value="#{dailySalesReportBean.summary}" />
+                            <h:outputText style="font-weight: normal;" value="#{dailySalesReportBean.seatsBooked}" rendered="#{dailySalesReportBean.moreThanOneTheater}" />
+                            <h:outputText value="&nbsp;&nbsp; Amount: " rendered="#{dailySalesReportBean.moreThanOneTheater}" />
+                            <h:outputText style="font-weight: normal;" value="#{dailySalesReportBean.amount}" rendered="#{dailySalesReportBean.moreThanOneTheater}" >
+                                <f:convertNumber minFractionDigits="2" maxFractionDigits="2" groupingUsed="true" minIntegerDigits="1" />
+                            </h:outputText>
+                        </f:facet>
+                        <h:column>
+                            <h:dataTable id="t2" class="movieTable" headerClass="movieTableHeader" footerClass="#{theater.footerClass}" value="#{theater.movies}" var="movie" rowClasses="rowOdd, rowEven">
+                                <f:facet name="header"><h:outputText value="#{theater.name}" /></f:facet>
+                                <h:column>
+                                    <h:outputText value="#{movie.title}" />
+                                    <f:facet name="footer" rendered="#{theater.moreThanOneMovie}" >
+                                        <h:outputText value="Daily Theater Total &rarr;" rendered="#{theater.moreThanOneMovie}" />
+                                    </f:facet>
+                                </h:column>
+                                <h:column>
+                                    <h:dataTable id="t3" class="movieShowTable" headerClass="movieShowHeader" footerClass="#{movie.footerClass}" value="#{movie.movieShows}" var="movieShow" rowClasses="rowOdd, rowEven" >
+                                        <h:column>
+                                            <f:facet name="header"><h:outputText value="Hall" /></f:facet>
+                                            <h:outputText value="#{movieShow.hall.name}" />
+                                            <f:facet name="footer" rendered="#{movie.moreThanOneMovieShow}">
+                                                <h:outputText value="Movie Total &rarr;" rendered="#{movie.moreThanOneMovieShow}" />
+                                            </f:facet>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header"><h:outputText value="Date" /></f:facet>
+                                            <h:outputText value="#{movieShow.showDate}" >
+                                                <f:convertDateTime pattern="EEE, dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header"><h:outputText value="Time" /></f:facet>
+                                            <h:outputText value="#{movieShow.showTime}" >
+                                                <f:convertDateTime pattern="hh:mm a" />
+                                            </h:outputText>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header"><h:outputText value="Booked Seats" /></f:facet>
+                                            <h:outputText value="#{movieShow.seatsBooked}" />
+                                            <f:facet name="footer" rendered="#{movie.moreThanOneMovieShow}"><h:outputText value="#{movie.seatsBooked}" rendered="#{movie.moreThanOneMovieShow}" /></f:facet>
+                                        </h:column>
+                                        <h:column>
+                                            <f:facet name="header"><h:outputText value="Amount" /></f:facet>
+                                            <h:outputText value="#{movieShow.amount}" >
+                                                <f:convertNumber minFractionDigits="2" maxFractionDigits="2" groupingUsed="true" minIntegerDigits="1" />
+                                            </h:outputText>
+                                            <f:facet name="footer" rendered="#{movie.moreThanOneMovieShow}">
+                                                <h:outputText value="#{movie.amount}" rendered="#{movie.moreThanOneMovieShow}" >
+                                                    <f:convertNumber minFractionDigits="2" maxFractionDigits="2" groupingUsed="true" minIntegerDigits="1" />
+                                                </h:outputText>
+                                            </f:facet>
+                                        </h:column>
+                                    </h:dataTable>
+                                    <f:facet name="footer" rendered="#{theater.moreThanOneMovie}">
+                                        <h:outputText value="Booked Seats: " rendered="#{theater.moreThanOneMovie}" />
+                                        <h:outputText style="font-weight: normal;" value="#{theater.seatsBooked}" rendered="#{theater.moreThanOneMovie}" />
+                                        <h:outputText value="&nbsp;&nbsp; Amount: " rendered="#{theater.moreThanOneMovie}" />
+                                        <h:outputText style="font-weight: normal;" value="#{theater.amount}" rendered="#{theater.moreThanOneMovie}" >
+                                            <f:convertNumber minFractionDigits="2" maxFractionDigits="2" groupingUsed="true" minIntegerDigits="1" />
+                                        </h:outputText>
+                                    </f:facet>
+                                </h:column>
+                            </h:dataTable>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

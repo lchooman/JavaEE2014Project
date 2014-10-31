@@ -1,0 +1,553 @@
+/***********************************************************************************************************************************
+    Customer movie show booking and employee reporting Java EE system, using Spring 3+, Hibernate 4+ and JSF 2.1+
+    Copyright (C) 2014 Lewis Tat Fong CHOO MAN
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+************************************************************************************************************************************/
+
+html {
+    height: 100%;
+    width: 100%;
+}
+body
+{
+    margin-top: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0px;
+    width: 98%;
+    height: 97%;
+    border-style: ridge;
+    border-width: 5px;
+    padding: 5px;
+    overflow: auto;
+    min-width: 1200px;
+    min-height: 768px;
+    max-width: 1366px;
+}
+.top
+{
+    width:100%;
+    height: 10%;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    text-align: center;
+    padding: 0px;
+    margin: 0px;
+    background-image: url('../images/banner-back.jpg');
+}
+
+.top table {
+    height: 100%;
+    border: none;
+    vertical-align: middle;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+    color: darkblue;
+}
+
+.bottom
+{
+    width:100%;
+    height: 3%;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    text-align: center;
+    padding: 0px;
+    margin: 0px;
+    background-image: url('../images/footer-back.jpg');
+}
+
+.bottom table {
+    height: 100%;
+    border: none;
+    vertical-align: middle;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-size: small;
+    font-weight: bold;
+    color: darkblue;
+}
+
+.main
+{
+    width: 100%;
+    height: 85%;
+    border-style: none;
+    border-width: 1px;
+    border-color: black;
+    margin-top: 5px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-bottom: 5px;
+    padding: 0px;
+    overflow: hidden;
+}
+.left
+{
+    width: 15%;
+    height: 98.2%;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    padding: 5px;
+    margin: 0px;
+    float: left;
+    text-align: center;
+    overflow: auto;
+    background-image: url('../images/menu-back.jpg');
+}
+.right
+{
+    width: 83%;
+    height: 98.2%;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    padding: 5px;
+    margin: 0px;
+    float: right;
+    overflow: auto;
+    background-image: url('../images/body-back.jpg');
+}
+
+.contactTable {
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0px;
+    background-color: white;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    padding: 10px;
+    color: black;
+}
+
+.contactHeader {
+    text-align: center;
+    font-size: xx-large;
+    font-weight: bold;
+    color: darkmagenta;
+}
+
+.contactTableContent {
+    margin-top: 20px;
+    color: darkblue;
+}
+
+.contactTableContent > thead > tr > th {
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+    color: darkblue;
+}
+
+.contactTableContent > tbody > tr > th {
+    text-align: right;
+    font-weight: bold;
+}
+
+.contactTableContent > tbody > tr > td {
+    text-align: left;
+    font-weight: normal;
+}
+
+.menuTable {
+    border: none;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0px;
+    text-align: center;
+    font-weight: bold;
+    color: darkblue;
+}
+.menuHeader {
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+    background-color: white;
+    padding: 5px 10px;
+}
+.menuTable tbody td {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: large;
+}
+
+a:link, a:visited {
+    text-decoration: none;
+    color: darkgreen;
+}
+a:active {
+    color: darkblue;
+}
+a:hover {
+    color: darkred;
+    background-color: lime;
+}
+
+.errorMsgs {
+    color: red;
+}
+
+.loginTable {
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0px;
+    background-color: white;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    color: darkblue;
+    padding: 10px;
+}
+
+.loginHeader {
+    text-align: center;
+    font-size: xx-large;
+    font-weight: bold;
+    color: darkmagenta;
+    vertical-align: top;
+    padding-bottom: 20px;
+}
+
+.loginTable thead th, .loginTable thead td, .loginTable tbody th, .loginTable tbody td {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.loginTable > tbody > tr > th {
+    text-align: left;
+    font-weight: bold;
+}
+
+.loginTable > tbody > tr > td {
+    text-align: left;
+    font-weight: normal;
+}
+
+.filterTable {
+    border: solid;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0px;
+    background-color: white;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: black;
+}
+
+.filterTable th {
+    font-weight: bold;
+    text-align: right;
+}
+
+.separatorCell {
+    width: 10px;
+}
+
+.theaterTable {
+    background-color: white;
+    border-collapse: separate;
+    border-spacing: 0px 10px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    padding: 0px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    color: black;
+}
+
+.rowOdd {
+    background-color: azure;
+}
+
+.rowEven {
+    background-color: lightyellow;
+}
+
+/*
+.rowOdd > td > a:hover {
+    background-color: lightyellow;
+}
+*/
+
+.theaterHeader {
+    font-weight: bold;
+    font-size: xx-large;
+    color: darkmagenta;
+    padding: 0px 10px;
+    text-align: center;
+}
+
+.theaterFooter {
+    font-weight: bold;
+    color: red;
+    padding: 10px 10px;
+    text-align: center;
+}
+
+.movieTable {
+    border-collapse: collapse;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0px;
+    padding: 0px;
+    color: black;
+}
+
+.movieTableHeader {
+    font-weight: bold;
+    font-size: x-large;
+    color: darkblue;
+    /* text-align: center; */
+}
+
+.movieTable tbody td, .movieTable thead th {
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    font-weight: bold;
+    padding: 5px;
+    margin: 0px;
+}
+
+.movieShowTable {
+    border-collapse: collapse;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0px;
+    padding: 0px;
+    color: black;
+}
+
+.movieShowTable tbody td, .movieShowTable thead th {
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    font-weight: normal;
+    padding: 5px;
+    margin: 0px;
+}
+
+.movieShowTable td:nth-child(4), .movieShowTable td:nth-child(5), .movieShowTable th:nth-child(4), .movieShowTable th:nth-child(5) {
+    text-align: right;
+}
+
+.movieShowHeader {
+    color: darkblue;
+}
+
+.hide {
+    display: none;
+}
+
+.movieShowFooter {
+    background-color: lightpink;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    color: darkblue;
+    font-weight: bold;
+    padding: 5px;
+    margin: 0px;
+    text-align: right;
+}
+
+.imgListMovie {
+    height: 150px;
+}
+
+.showCollectionTable {
+    background-color: white;
+    border-collapse: separate;
+    border-spacing: 0px 5px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    padding: 5px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    color: black;
+}
+
+.showCollectionTable thead tr:nth-child(1) .showCollectionHeader {
+    font-weight: bold;
+    font-size: xx-large;
+    color: darkmagenta;
+    padding: 0px 10px;
+    text-align: center;
+}
+
+.showCollectionHeader {
+    font-weight: bold;
+    color: darkblue;
+    padding: 5px;
+    margin: 0px;
+    text-align: center;
+}
+
+.showCollectionFooter {
+    font-weight: bold;
+    color: red;
+    padding: 10px 10px;
+    text-align: center;
+}
+
+.showCollectionFooterTotal {
+    background-color: lightpink;
+    border-style: none;
+    color: darkblue;
+    font-weight: bold;
+    padding: 5px;
+    margin: 0px;
+    text-align: right;
+}
+
+.showCollectionTable tfoot tr:nth-child(2) .showCollectionFooterTotal {
+    display: none;
+}
+
+.showCollectionTable tbody td {
+    border-style: none;
+    font-weight: normal;
+    padding: 5px;
+    margin: 0px;
+}
+
+.showCollectionTable td:nth-child(2), .showCollectionTable td:nth-child(3), .showCollectionTable th:nth-child(2), .showCollectionTable th:nth-child(3)  {
+    text-align: right;
+}
+
+.showCollectionTable td:nth-child(1) {
+    font-weight: bold;
+}
+
+.showCollection2Table {
+    background-color: white;
+    border-collapse: separate;
+    border-spacing: 0px 5px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    padding: 5px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    color: black;
+}
+
+.showCollection2Header {
+    font-weight: bold;
+    color: darkblue;
+    padding: 5px;
+    margin: 0px;
+    text-align: center;
+}
+
+.showCollection2Table tbody td {
+    border-style: none;
+    font-weight: normal;
+    padding: 5px;
+    margin: 0px;
+}
+
+.showCollection2Table td:nth-child(5), .showCollection2Table td:nth-child(6), .showCollection2Table th:nth-child(5), .showCollection2Table th:nth-child(6)  {
+    text-align: right;
+}
+
+.aboutUs {
+    background-color: white;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    color: darkblue;
+    padding: 10px;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.home {
+    background-color: white;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    color: darkblue;
+    padding: 10px;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.movieImg {
+    display: inline;
+    margin-top: 10px;
+    margin-left: 7px;
+    margin-right: 7px;
+    margin-bottom: 10px;
+    border-style: none;
+    height: 317px;
+}
+
+.messages {
+    background-color: white;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    color: darkred;
+    font-size: large;
+    font-weight: bold;
+    padding: 10px;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5px;
+    text-align: center;
+}

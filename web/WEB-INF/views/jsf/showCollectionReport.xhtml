@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+    Customer movie show booking and employee reporting Java EE system, using Spring 3+, Hibernate 4+ and JSF 2.1+
+    Copyright (C) 2014 Lewis Tat Fong CHOO MAN
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see http://www.gnu.org/licenses/.
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="template.xhtml">
+            <ui:define name="body">
+                <f:event listener="#{showCollectionReportBean.preRender}" type="preRenderView" />
+                <h:form>
+                    <table class="filterTable">
+                        <tr><th><h:outputLabel for="startDate" value="Start Date: " /></th>
+                            <td><h:inputText value="#{showCollectionReportBean.startDate}" id="startDate" size="10" maxlength="10" binding="#{showCollectionReportBean.startDateUI}"
+                                             required="true" requiredMessage="Start date is required" converterMessage="Invalid date format" >
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </h:inputText>&nbsp;
+                                <h:message class="errorMsgs" for="startDate" /></td>
+                            <td class="separatorCell"></td>
+                            <th><h:outputLabel for="endDate" value="End Date: " /></th>
+                            <td><h:inputText value="#{showCollectionReportBean.endDate}" id="endDate" size="10" maxlength="10" validator="#{showCollectionReportBean.validateEndDate}"
+                                            converterMessage="Invalid date format" >
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                    <f:attribute name="startDateUI" value="#{showCollectionReportBean.startDateUI}" />
+                                </h:inputText>&nbsp;
+                                <h:message class="errorMsgs" for="endDate" /></td>
+                            <td class="separatorCell"></td>                            <td class="separatorCell"></td>
+                            <td><h:commandButton action="#{showCollectionReportBean.go}" value="Go" type="submit" /></td>
+                            <td class="separatorCell"></td>
+                            <td><h:commandButton value="Reset" type="reset" /></td></tr>
+                    </table>
+                </h:form>
+                <h:form>
+                    <h:inputHidden id="startDate" value="#{showCollectionReportBean.startDate}" >
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:inputHidden>
+                    <h:inputHidden id="endDate" value="#{showCollectionReportBean.endDate}" >
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:inputHidden>
+                    <h:dataTable id="t1" class="showCollectionTable" headerClass="showCollectionHeader" footerClass="#{showCollectionReportBean.footerClass}"
+                                 value="#{showCollectionReportBean.moviesByDate}" var="movie" rowClasses="rowOdd, rowEven">
+                        <f:facet name="header"><h:outputText value="#{showCollectionReportBean.movieTitle}" /></f:facet>
+                        <f:facet name="footer">
+                            <h:outputText value="#{showCollectionReportBean.summary}" />
+                        </f:facet>
+                        <h:column>
+                            <f:facet name="header"><h:outputText value="Movie Title" /></f:facet>
+                            <h:commandLink action="#{showCollectionReportBean.go2MovieShows}" value="#{movie.title}" >
+                                <f:setPropertyActionListener value="#{movie.id}" target="#{showCollectionReportBean.movieId}" />
+                            </h:commandLink>
+                            <f:facet name="footer" rendered="#{showCollectionReportBean.moreThanOneMovie}" >
+                                <h:outputText value="Grand Total &rarr;" rendered="#{showCollectionReportBean.moreThanOneMovie}" />
+                            </f:facet>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header"><h:outputText value="Booked Seats" /></f:facet>
+                            <h:outputText value="#{movie.seatsBooked}" />
+                            <f:facet name="footer" rendered="#{showCollectionReportBean.moreThanOneMovie}"><h:outputText value="#{showCollectionReportBean.seatsBooked}" rendered="#{showCollectionReportBean.moreThanOneMovie}" /></f:facet>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header"><h:outputText value="Amount" /></f:facet>
+                            <h:outputText value="#{movie.amount}" >
+                                <f:convertNumber minFractionDigits="2" maxFractionDigits="2" groupingUsed="true" minIntegerDigits="1" />
+                            </h:outputText>
+                            <f:facet name="footer" rendered="#{showCollectionReportBean.moreThanOneMovie}">
+                                <h:outputText value="#{showCollectionReportBean.amount}" rendered="#{showCollectionReportBean.moreThanOneMovie}" >
+                                    <f:convertNumber minFractionDigits="2" maxFractionDigits="2" groupingUsed="true" minIntegerDigits="1" />
+                                </h:outputText>
+                            </f:facet>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

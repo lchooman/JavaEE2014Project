@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+    Customer movie show booking and employee reporting Java EE system, using Spring 3+, Hibernate 4+ and JSF 2.1+
+    Copyright (C) 2014 Lewis Tat Fong CHOO MAN
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see http://www.gnu.org/licenses/.
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="template.xhtml">
+            <ui:define name="body">
+                <div class="aboutUs">
+                <h:form>
+                    <h1>Unlimited Entertainment Ltd</h1>
+                    <p>Unlimited Entertainment Ltd was incorporated in December 2008, in California.</p>
+                    <p>After a few years of operation, Unlimited Entertainment Ltd finally launched its web site in November 2014 to cater
+                        for the best experience of its increasingly cyber-oriented movie-goers.</p>
+                    <p>Unlimited Entertainment Ltd currently manages <h:outputText value="#{aboutUsBean.numTheaters}" /> movie theaters, as follows:</p>
+                    <ul>
+                        <ui:repeat value="#{aboutUsBean.theaters}" var="theater" >
+                            <li><h:outputText value="#{theater.name}" /> - with <h:outputText value="#{theater.numberOfHalls}" />
+                                halls totaling <h:outputText value="#{theater.totalHallSeats}" /> seats.</li>
+                        </ui:repeat>
+                    </ul>
+                    <h2>Mission Statement</h2>
+                    <p>Our mission statement is to supply our movie-goers with the most accurate information before they set out their journeys for their preferred movie theaters.</p>
+                    <p>In our movie theaters, we strive to provide our movie-goers the best possible experience.</p>
+                    <h2>Vision</h2>
+                    <p>Our vision for the next five years is to double the current number of movie theaters under our management to reach out to a bigger part of California.</p>
+                </h:form>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

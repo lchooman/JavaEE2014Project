@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+    Customer movie show booking and employee reporting Java EE system, using Spring 3+, Hibernate 4+ and JSF 2.1+
+    Copyright (C) 2014 Lewis Tat Fong CHOO MAN
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see http://www.gnu.org/licenses/.
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="template.xhtml">
+            <ui:define name="body">
+                <h:form>
+                    <h:inputHidden id="movieShowId" value="#{movieShowBean.movieShowId}" />
+                    <table class="loginTable">
+                        <thead><tr><th class="loginHeader" colspan="4"><h:outputText value="Book Movie Show" /></th></tr>
+                            <tr><th colspan="4"> <h:outputLabel class="errorMsgs" value="#{movieShowBean.bookShowMsg}" /></th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="10"><h:graphicImage class="movieImg" url="#{movieShowBean.movieShow.movie.imageUrl}" alt="#{movieShowBean.movieShow.movie.title}" /></td>
+                                <th><h:outputText value="Theater: " /></th>
+                                <td colspan="2"><h:outputText value="#{movieShowBean.movieShow.hall.theater.name}" id="theater" /></td></tr>
+                            <tr><th><h:outputText value="Hall: " /></th>
+                                <td colspan="2"><h:outputText value="#{movieShowBean.movieShow.hall.name}" id="hall" /></td></tr>
+                            <tr><th><h:outputText value="Movie: " /></th>
+                                <td colspan="2"><h:outputText value="#{movieShowBean.movieShow.movie.title}" id="movie" /></td></tr>
+                            <tr><th><h:outputText value="Show Date: " /></th>
+                                <td colspan="2"><h:outputText value="#{movieShowBean.movieShow.showDate}" id="showDate" >
+                                                     <f:convertDateTime pattern="EEE, dd MMM yyyy" />
+                                                </h:outputText>
+                                </td></tr>
+                            <tr><th><h:outputText value="Show Time: " /></th>
+                                <td colspan="2"><h:outputText value="#{movieShowBean.movieShow.showTime}" id="showTime" >
+                                                     <f:convertDateTime pattern="hh:mm a" />
+                                                </h:outputText>
+                                </td></tr>
+                            <tr><th><h:outputText value="Seats Available: " /></th>
+                                <td colspan="2"><h:outputText value="#{movieShowBean.movieShow.seatsBalance}" id="seatsAvailable" /></td></tr>
+                            <tr><th><h:outputText value="Unit Price: " /></th>
+                                <td colspan="2"><h:outputText value="#{movieShowBean.movieShow.price}" id="price" >
+                                        <f:convertNumber minFractionDigits="2" maxFractionDigits="2" groupingUsed="true" minIntegerDigits="1" />
+                                               </h:outputText>
+                                </td></tr>
+
+                            <tr><th><h:outputLabel for="seatsToBook" value="Seats to book: " /></th>
+                                <td><h:inputText value="#{movieShowBean.seatsToBook}" id="seatsToBook" required="true" requiredMessage="Seats to book required"
+                                                 size="4" maxlength="4" validator="#{movieShowBean.validateSeatsToBook}" converterMessage="Invalid number" >
+                                        <f:convertNumber pattern="###0" />
+                                        <f:ajax event="change" execute="@this movieShowId" render="@this amountBooked seatsToBookMsg seatsAvailable" />
+                                    </h:inputText>
+                                </td>
+                                <td><h:message id="seatsToBookMsg" class="errorMsgs" for="seatsToBook" /></td></tr>
+                            <tr><th><h:outputText value="Amount: " /></th>
+                                <td colspan="2"><h:outputText value="#{movieShowBean.amountBooked}" id="amountBooked" >
+                                                    <f:convertNumber minFractionDigits="2" maxFractionDigits="2" groupingUsed="true" minIntegerDigits="1" />
+                                                </h:outputText>
+                                </td></tr>
+
+                            <tr><th><h:outputLabel for="cardNumber" value="Credit/Debit Card Number: " /></th>
+                                <td><h:inputText value="#{movieShowBean.cardNumber}" id="cardNumber" required="true" requiredMessage="Credit/Debit card number required"
+                                                 size="23" maxlength="23" converterMessage="Invalid card number, must be between 13 and 19 digit long" >
+                                        <f:converter converterId="groupConverter" />
+                                        <f:attribute name="groupConverter.size" value="4" />
+                                        <f:attribute name="groupConverter.separator" value=" " />
+                                        <f:attribute name="groupConverter.direction" value="RightToLeft" />
+                                        <f:attribute name="groupConverter.pattern" value="\d{13,19}" />
+                                        <f:ajax event="change" execute="@this movieShowId" render="@this cardNumberMsg" />
+                                    </h:inputText>
+                                </td>
+                                <td><h:message id="cardNumberMsg" class="errorMsgs" for="cardNumber" /></td></tr>
+
+                            <tr><td></td>
+                                <th style="text-align: right;"><h:commandButton action="#{movieShowBean.bookSeats4Show}" value="Book Seats" type="submit" /></th>
+                                <td><h:commandButton value="Reset" type="reset" /></td>
+                                <td></td></tr>
+                            <tr><th colspan="4" style="text-align: center;"><h:commandLink action="listMovies" value="List Movies" immediate="true" /></th></tr>
+                        </tbody>
+                    </table>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

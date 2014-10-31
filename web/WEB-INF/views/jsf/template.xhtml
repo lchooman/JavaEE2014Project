@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+    Customer movie show booking and employee reporting Java EE system, using Spring 3+, Hibernate 4+ and JSF 2.1+
+    Copyright (C) 2014 Lewis Tat Fong CHOO MAN
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see http://www.gnu.org/licenses/.
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Unlimited Entertainment Ltd</title>
+        <link href="../resources/externStyleSheet.css" rel="stylesheet" type="text/css"></link>
+    </h:head>
+    <h:body>
+        <div class="top">
+            <img style="float:left; height: 100%;" src="../images/banner-adventure.png" alt="Image not available" />
+            <img style="float:left; height: 100%;" src="../images/banner-scifi.png" alt="Image not available" />
+            <img style="float:left; height: 100%;" src="../images/banner-adventure-3.png" alt="Image not available" />
+            <img style="float:right; height: 100%;" src="../images/banner-action.png" alt="Image not available" />
+            <img style="float:right; height: 100%;" src="../images/banner-magic.png" alt="Image not available" />
+            <img style="float:right; height: 100%;" src="../images/banner-action-3.png" alt="Image not available" />
+            <table>
+                <tr>
+                    <td>
+                        <h1>Unlimited Entertainment Ltd</h1>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="main">
+           <div class="left">
+               <h:form>
+                   <h:dataTable value="#{menuBean.webpages4Menu}" var="webpage"  class="menuTable"
+                                headerClass="menuHeader">
+                       <f:facet name="header">
+                           <h:outputText value="#{menuBean.loggedInUser}" />
+                       </f:facet>
+                       <h:column>
+                           <h:commandLink action="#{menuBean.go}" value="#{webpage.description}" rendered="#{webpage.webpage}" >
+                               <f:setPropertyActionListener value="#{webpage.name}" target="#{menuBean.actionName}" />
+                           </h:commandLink>
+                           <h:outputText value="#{webpage.description}" rendered="#{webpage.currentView}" />
+                           <h:commandLink action="#{menuBean.logout}" value="#{webpage.description}" rendered="#{webpage.logout}" >
+                           </h:commandLink>
+                       </h:column>
+                   </h:dataTable>
+               </h:form>
+           </div>
+           <div class="right">
+              <ui:insert name="body" />
+           </div>
+        </div>
+        <div class="bottom"><table><tr><td>&copy; Unlimited Entertainment Ltd 2014 | Designed &amp; developed by Lewis Choo Man</td></tr></table></div>
+    </h:body>
+</html>

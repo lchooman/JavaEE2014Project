@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+    Customer movie show booking and employee reporting Java EE system, using Spring 3+, Hibernate 4+ and JSF 2.1+
+    Copyright (C) 2014 Lewis Tat Fong CHOO MAN
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see http://www.gnu.org/licenses/.
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="template.xhtml">
+            <ui:define name="body">
+                <h:form>
+                    <h:inputHidden id="startDate" value="#{showCollectionReportBean.startDate}" >
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:inputHidden>
+                    <h:inputHidden id="endDate" value="#{showCollectionReportBean.endDate}" >
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:inputHidden>
+                    <h:inputHidden id="movieId" value="#{showCollectionReportBean.movieId}" />
+                    <h:inputHidden id="movieShowId" value="#{showCollectionReportBean.movieShowId}" />
+                    <table class="loginTable">
+                        <thead><tr><th class="loginHeader" colspan="3"><h:outputText value="Show Collection Report - Movie Show" /></th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="8"><h:graphicImage class="movieImg" url="#{showCollectionReportBean.movieShow.movie.imageUrl}" alt="#{showCollectionReportBean.movieShow.movie.title}" /></td>
+                                <th><h:outputText value="Movie: " /></th>
+                                <td><h:outputText value="#{showCollectionReportBean.movieShow.movie.title}" id="movie" /></td></tr>
+                            <tr><th><h:outputText value="Theater: " /></th>
+                                <td><h:outputText value="#{showCollectionReportBean.movieShow.hall.theater.name}" id="theater" /></td></tr>
+                            <tr><th><h:outputText value="Hall: " /></th>
+                                <td><h:outputText value="#{showCollectionReportBean.movieShow.hall.name}" id="hall" /></td></tr>
+                            <tr><th><h:outputText value="Show Date: " /></th>
+                                <td><h:outputText value="#{showCollectionReportBean.movieShow.showDate}" id="showDate" >
+                                        <f:convertDateTime pattern="EEE, dd/MM/yyyy" />
+                                    </h:outputText>
+                                </td></tr>
+                            <tr><th><h:outputText value="Show Time: " /></th>
+                                <td><h:outputText value="#{showCollectionReportBean.movieShow.showTime}" id="showTime" >
+                                        <f:convertDateTime pattern="hh:mm a" />
+                                    </h:outputText>
+                                </td></tr>
+                            <tr><th><h:outputText value="Booked Seats: " /></th>
+                                <td><h:outputText value="#{showCollectionReportBean.movieShow.seatsBooked}" id="bookedSeats" /></td></tr>
+                            <tr><th><h:outputText value="Unit Price: " /></th>
+                                <td><h:outputText value="#{showCollectionReportBean.movieShow.price}" id="price" >
+                                        <f:convertNumber minFractionDigits="2" maxFractionDigits="2" groupingUsed="true" minIntegerDigits="1" />
+                                    </h:outputText>
+                                </td></tr>
+                            <tr><th><h:outputText value="Amount: " /></th>
+                                <td><h:outputText value="#{showCollectionReportBean.movieShow.amount}" id="amount" >
+                                        <f:convertNumber minFractionDigits="2" maxFractionDigits="2" groupingUsed="true" minIntegerDigits="1" />
+                                    </h:outputText>
+                                </td></tr>
+                            <tr><th colspan="2" style="text-align: center;"><h:commandLink action="showCollectionReport" value="Show Collection Report" /></th>
+                                <th style="text-align: center;"><h:commandLink action="showCollectionShowsReport" value="Show Collection Report - Movie Shows" /></th></tr>
+                        </tbody>
+                    </table>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
