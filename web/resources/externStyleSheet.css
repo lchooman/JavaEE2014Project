@@ -116,7 +116,7 @@ body
 }
 .right
 {
-    width: 83%;
+    width: 82.5%;
     height: 98.2%;
     border-style: solid;
     border-width: 1px;
@@ -188,9 +188,13 @@ body
     padding: 5px 10px;
 }
 .menuTable tbody td {
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding: 1px 0px;
     font-size: large;
+}
+
+.menuTable tbody td a {
+    padding: 4px 5px;
+    display: block;
 }
 
 a:link, a:visited {
@@ -232,10 +236,16 @@ a:hover {
 }
 
 .loginTable thead th, .loginTable thead td, .loginTable tbody th, .loginTable tbody td {
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding: 5px;
+}
+
+.loginTable > tbody > tr:last-of-type > td, .loginTable > tbody > tr:last-of-type > th {
+    padding: 1px;
+}
+
+.loginTable > tbody > tr:last-of-type > td > a, .loginTable > tbody > tr:last-of-type > th > a {
+    padding: 4px;
+    display: block;
 }
 
 .loginTable > tbody > tr > th {
@@ -369,7 +379,11 @@ a:hover {
     margin: 0px;
 }
 
-.movieShowTable td:nth-child(4), .movieShowTable td:nth-child(5), .movieShowTable th:nth-child(4), .movieShowTable th:nth-child(5) {
+.movieShowTable tbody td a {
+    display: block;
+}
+
+.movieShowTable td:nth-of-type(4), .movieShowTable td:nth-of-type(5), .movieShowTable th:nth-of-type(4), .movieShowTable th:nth-of-type(5) {
     text-align: right;
 }
 
@@ -412,7 +426,7 @@ a:hover {
     color: black;
 }
 
-.showCollectionTable thead tr:nth-child(1) .showCollectionHeader {
+.showCollectionTable thead tr:nth-of-type(1) .showCollectionHeader {
     font-weight: bold;
     font-size: xx-large;
     color: darkmagenta;
@@ -445,7 +459,7 @@ a:hover {
     text-align: right;
 }
 
-.showCollectionTable tfoot tr:nth-child(2) .showCollectionFooterTotal {
+.showCollectionTable tfoot tr:nth-of-type(2) .showCollectionFooterTotal {
     display: none;
 }
 
@@ -456,11 +470,20 @@ a:hover {
     margin: 0px;
 }
 
-.showCollectionTable td:nth-child(2), .showCollectionTable td:nth-child(3), .showCollectionTable th:nth-child(2), .showCollectionTable th:nth-child(3)  {
+.showCollectionTable tbody td:nth-of-type(1) {
+    padding: 1px;
+}
+
+.showCollectionTable tbody td a {
+    padding: 4px;
+    display: block;
+}
+
+.showCollectionTable td:nth-of-type(2), .showCollectionTable td:nth-of-type(3), .showCollectionTable th:nth-of-type(2), .showCollectionTable th:nth-of-type(3)  {
     text-align: right;
 }
 
-.showCollectionTable td:nth-child(1) {
+.showCollectionTable td:nth-of-type(1) {
     font-weight: bold;
 }
 
@@ -494,7 +517,16 @@ a:hover {
     margin: 0px;
 }
 
-.showCollection2Table td:nth-child(5), .showCollection2Table td:nth-child(6), .showCollection2Table th:nth-child(5), .showCollection2Table th:nth-child(6)  {
+.showCollection2Table tbody td:nth-of-type(3), .showCollection2Table tbody td:nth-of-type(4) {
+    padding: 1px;
+}
+
+.showCollection2Table tbody td a {
+    padding: 4px;
+    display: block;
+}
+
+.showCollection2Table td:nth-of-type(5), .showCollection2Table td:nth-of-type(6), .showCollection2Table th:nth-of-type(5), .showCollection2Table th:nth-of-type(6)  {
     text-align: right;
 }
 
