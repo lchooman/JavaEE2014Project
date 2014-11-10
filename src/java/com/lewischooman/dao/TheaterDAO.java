@@ -23,6 +23,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
@@ -42,6 +43,7 @@ public class TheaterDAO implements ITheaterDAO {
 
         session = this.sessionFactory.getCurrentSession();
         criteria = session.createCriteria(TheaterDB.class);
+        criteria.addOrder(Order.asc("name"));
         return (List<TheaterDB>) criteria.list();
     }
 }

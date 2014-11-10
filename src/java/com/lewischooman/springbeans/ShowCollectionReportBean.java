@@ -252,8 +252,8 @@ public class ShowCollectionReportBean {
     public Integer getSeatsBooked() {
         if (this.movies != null && this.seatsBooked == null) {
             int sumSeatsBooked = 0;
-            for (MovieDB movie : this.movies) {
-                sumSeatsBooked += movie.getSeatsBooked();
+            for (MovieDB mv : this.movies) {
+                sumSeatsBooked += mv.getSeatsBooked();
             }
             this.seatsBooked = sumSeatsBooked;
         }
@@ -263,8 +263,8 @@ public class ShowCollectionReportBean {
     public Double getAmount() {
         if (this.amount == null) {
             double sumAmount = 0;
-            for (MovieDB movie : this.movies) {
-                sumAmount += movie.getAmount();
+            for (MovieDB mv : this.movies) {
+                sumAmount += mv.getAmount();
             }
             this.amount = sumAmount;
         }

@@ -205,8 +205,9 @@ public class MovieShowBean {
     
     public Double getAmountBooked() {
         Double price;
+        MovieShowDB mvShow;
         // System.out.println("this.movieShowId: " + this.movieShowId + ", getMovieShow() : " + (getMovieShow() == null ? "IS NULL" : "NOT NULL"));
-        if (this.movieShowId != null && (price = getMovieShow().getPrice()) != null && this.seatsToBook != null) {
+        if (this.movieShowId != null && (mvShow = getMovieShow()) != null && (price = mvShow.getPrice()) != null && this.seatsToBook != null) {
             return price * this.seatsToBook;
         } else {
             return null;
