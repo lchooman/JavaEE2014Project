@@ -20,7 +20,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets" >
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
@@ -30,9 +31,9 @@
                 <div class="home">
                 <h:form>
                     <h1>Upcoming Movie Shows</h1>
-                    <ui:repeat value="#{homeBean.movies}" var="movie" >
-                        <h:graphicImage class="movieImg" url="#{movie.imageUrl}" alt="#{movie.title}" />
-                    </ui:repeat>
+                    <p:contentFlow style="height: 444px;" value="#{homeBean.movies}" var="movie">
+                        <p:graphicImage styleClass="content" value="#{movie.imageUrl}" />
+                    </p:contentFlow>
                 </h:form>
                 </div>
             </ui:define>

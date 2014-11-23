@@ -36,7 +36,7 @@ import org.springframework.stereotype.Component;
 
 @Component(value="homeBean")
 @Scope(value="request")
-public class HomeBean {
+public class HomeBean implements java.io.Serializable {
 
     @Autowired
     @Qualifier(value="movieShowSrv")
