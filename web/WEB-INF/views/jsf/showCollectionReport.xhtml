@@ -27,9 +27,31 @@
     </h:head>
     <h:body>
         <ui:composition template="template.xhtml">
+            <ui:define name="head">
+                <link rel="stylesheet" type="text/css" href="../resources/jquery-ui/jquery-ui.min.css" />
+                <script src="../resources/jquery-ui/external/jquery/jquery.js"></script>
+                <script src="../resources/jquery-ui/jquery-ui.min.js"></script>
+                <script>
+                    $(function() {
+                        $("#searchForm\\:startDate, #searchForm\\:endDate").datepicker({
+                            showOn: "button",
+                            buttonImage: "../images/calendar.gif",
+                            buttonImageOnly: true,
+                            buttonText: "Select Date",
+                            changeMonth: true,
+                            changeYear: true,
+                            dateFormat: "dd/mm/yy",
+                            selectOtherMonths: true,
+                            showAnim: "bounce",
+                            showOtherMonths: true,
+                            showButtonPanel: true
+                        });
+                    });
+                </script>
+            </ui:define>
             <ui:define name="body">
                 <f:event listener="#{showCollectionReportBean.preRender}" type="preRenderView" />
-                <h:form>
+                <h:form id="searchForm">
                     <table class="filterTable">
                         <tr><th><h:outputLabel for="startDate" value="Start Date: " /></th>
                             <td><h:inputText value="#{showCollectionReportBean.startDate}" id="startDate" size="10" maxlength="10" binding="#{showCollectionReportBean.startDateUI}"
