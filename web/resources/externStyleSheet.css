@@ -207,6 +207,14 @@ a:active {
 a:hover {
     color: darkred;
     background-color: lime;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    -mozborder-radius-topleft: 10px;
+    -mozborder-radius-topright: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    -mozborder-radius-bottomleft: 10px;
+    -mozborder-radius-bottomright: 5px;
 }
 
 .errorMsgs {
